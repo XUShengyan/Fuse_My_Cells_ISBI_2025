@@ -1,0 +1,18 @@
+# Fuse My Cells 2025 ISBI Challenge Codebase
+
+## Overview
+This is the codebase for solving the Fuse My Cells 2025 ISBI challenge.
+
+## Inference Process
+1. Place the tif data to be inferred (membrane, nucleus, or a mixture of both) directly into the `input\images\fluorescence-lightsheet-3D-microscopy` directory under the project root.
+2. Run `inference.py` directly, which will determine the required model type based on the meta information in the tif file.
+3. The output results are located in `output\images\fused-fluorescence-lightsheet-3D-microscopy`.
+
+## Algorithm Workflow
+1. Original image -> [Pseudo 3D Unet combined with Z-axis attention] -> Preliminary prediction map
+2. Original image -> [SSIM predictor] -> Predict SSIM between original and fused images
+3. Original image -> [KMeans segmentation] -> Segmentation map
+4. Post-processing stage: Combine the predicted SSIM and segmentation map parameters to evaluate the prediction map and finally generate the final prediction map.
+
+## Design Reasons & Data analysis
+To be continued...

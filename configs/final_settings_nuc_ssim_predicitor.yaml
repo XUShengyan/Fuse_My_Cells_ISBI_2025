@@ -1,0 +1,49 @@
+
+data:
+  crop_size: [3,512,512]
+  batch_size: 16
+  batch_size_val: 16
+  num_workers: 16
+  transform: True
+  target_resolution: [1,0.2,0.2]
+
+    
+model:
+  name: "ssim_predictor"
+  params:
+    in_c: 1
+    features: [16, 32, 64, 128]
+
+
+inference:
+    tile_size:  [3, 512, 512]
+    tile_step_size: 0.5
+    batch_size: 2
+
+training:
+  lr: 0.001
+  weight_decay: 1e-4
+  epochs: 101
+  grad_clip: 1.0
+  use_amp: False
+  save_interval: 10
+  train_batches_per_epoch: Null
+  val_batches_per_epoch: Null
+  gradient_accumulation_steps: 1
+  scheduler:
+    name: "plateau"
+    plateau_factor: 0.5
+    plateau_patience: 5
+    min_lr: 1e-6
+
+# loss setting
+loss_configs:
+  - loss_name: "mse"
+    weight: 1
+
+
+paths:
+  root_dir: '/root/nuc'
+  trained_model_path: Null
+
+  
